@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="Template.html">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+    .center-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    </style>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <!-- Jumbotron -->
+    <div class="p-5 text-center bg-light">
+        <h1 class="mb-3 mt-4">Employees Management</h1>
+    </div>
+    <!-- Jumbotron -->
+    <main>
+        <!-- Contenu principal -->
+        <div class="container my-5">
+            <div class="row">
+                <div class="col-md-6 align-self-start">
+                    <h4>Welcome to our homepage!</h4>
+                    <p>As an administrator, you can manage employees and jobs.</p>
+
+                    <h6>Employee Management:</h6>
+                    <ul>
+                        <li>To add an employee, go to the "Add Employee" page.</li>
+                        <li>To modify employee information, go to the "Edit Employee" page.</li>
+                        <li>To delete an employee, go to the "Delete Employee" page.</li>
+                    </ul>
+
+                    <h6>Job Management:</h6>
+                    <ul>
+                        <li>To add a job, go to the "Add Job" page.</li>
+                        <li>To modify job details, go to the "Edit Job" page.</li>
+                        <li>To delete a job, go to the "Delete Job" page.</li>
+                    </ul>
+
+                    <p>Feel free to contact support if you have any further questions.</p>
+
+
+                </div>
+                <div class="col-md-6">
+                    <img th:src="@{/images/pdp.png}" alt="Mon image" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+
+</html>

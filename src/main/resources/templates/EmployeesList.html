@@ -1,40 +1,25 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Template.html">
+
         <head>
-            <link rel="stylesheet" type="text/css" href="webjars/bootstrap/5.2.0/css/bootstrap.min.css" />
             <meta charset="UTF-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <!-- Bootstrap CSS -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
             <title>Employees List</title>
         </head>
         <body>
 
+        <div layout:fragment="content">
+
+
         <!-- Header -->
         <header>
-            <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-white">
-                <div class="container-fluid">
-                    <button
-                            class="navbar-toggler"
-                            type="button"
-                            data-mdb-toggle="collapse"
-                            data-mdb-target="#navbarExample01"
-                            aria-controls="navbarExample01"
-                            aria-expanded="false"
-                            aria-label="Toggle navigation"
-                    >
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarExample01">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item active">
-                                <a class="nav-link" aria-current="page" href="createEmployee">Employee Creation</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-            <!-- Navbar -->
+
+
 
             <!-- Jumbotron -->
             <div class="p-5 text-center bg-light">
@@ -55,6 +40,9 @@
                     <th scope="col">Email </th>
                     <th scope="col">Phone </th>
                     <th scope="col">Recruitment Date</th>
+                    <th scope="col">Job</th>
+                    <th scope="col">Action </th>
+
                 </tr>
                 </thead>
 
@@ -67,50 +55,36 @@
                     <td th:text="${employee.email}"></td>
                     <td th:text="${employee.phone}"></td>
                     <td th:text="${employee.recruitmentDate}"></td>
+                    <td th:text="${employee.job.getTitle()}"></td>
 
                     <td> <a onclick="return confirm('Are you sure to delete this item ?')"
                             th:href="@{deleteEmployee(id=${employee.id},
                             page=${currentPage},
                             size=${size}
-                            )}">Delete</a></td>
-                    <td> <a th:href="@{showEmployee(id=${employee.id})}">Edit</a></td>
+                            )}">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                    <a th:href="@{showEmployee(id=${employee.id})}"><i class="fas fa-edit"></i>
+                    </a></td>
 
                 </tr>
                 </tbody>
             </table>
 
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
+                <ul class="nav nav-pills">
+                    <li th:each="page,status:${pages}">
+                        <a th:class="${status.index==currentPage?'btn btn-primary':'btn'}"
+                        th:href="@{employeesList(page=${status.index},size=${size})}"
+                           th:text="${status.index}"
+
+                        >
                         </a>
                     </li>
                 </ul>
-            </nav>
         </main>
 
-        <br>
-        <!-- Footer -->
-        <footer class="bg-light text-center text-lg-start">
-            <!-- Copyright -->
-            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-                © 2023 Copyright:
-                <a class="text-dark" >Ossama Zekraoui</a>
-            </div>
-            <!-- Copyright -->
-        </footer>
-        <!-- Footer -->
 
-
+        </div>
 
         </body>
 </html>

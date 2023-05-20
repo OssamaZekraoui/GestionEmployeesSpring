@@ -2,7 +2,10 @@ package org.example.controllers;
 
 import jakarta.validation.Valid;
 import org.example.entities.Employee;
+import org.example.entities.Job;
+import org.example.respository.JobRepository;
 import org.example.services.EmployeeService;
+import org.example.services.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -22,22 +25,37 @@ public class EmployeeController {
 
     @Autowired
     EmployeeService employeeService;
+    @Autowired
+    JobService jobService;
+
+    @RequestMapping("/home")
+    public String home() {
+
+        return "Home";
+    }
     @RequestMapping("/createEmployee")
-    public String createEmployee(){
+    public String createEmployee() {
+
         return "CreateEmployee";
     }
 
     @RequestMapping("/saveEmployee")
     public String saveEmployee(
             @Valid Employee employee,
-            BindingResult bindingResult
-    )  {
+            BindingResult bindingResult,
+            ModelMap modelMap
+    ) {
+        if(bindingResult.hasErrors()) {
+            List<Job> jobs = jobService.getAllJobs();
+            modelMap.addAttribute("jobs", jobs);
+            return "CreateEmployee";
+        }
 
-        if(bindingResult.hasErrors()) return "CreateEmployee";
-
+        // Save the employee
         employeeService.saveEmployee(employee);
         return "CreateEmployee";
     }
+
 
    /* @RequestMapping("/employeesList")
     public String employeesList(
@@ -52,7 +70,7 @@ public class EmployeeController {
     public String employeesList(
             ModelMap modelMap, //Envoyer à la jsp
             @RequestParam(name= "page", defaultValue = "0") int page,
-            @RequestParam(name= "size", defaultValue = "2") int size
+            @RequestParam(name= "size", defaultValue = "6") int size
 
             ){
         Page<Employee> employeesController = employeeService.getAllEmployeesByPage(page, size);
@@ -67,7 +85,7 @@ public class EmployeeController {
             @RequestParam("id") Long id,
            ModelMap modelMap,
             @RequestParam(name= "page", defaultValue = "0") int page,
-            @RequestParam(name= "size", defaultValue = "2") int size
+            @RequestParam(name= "size", defaultValue = "6") int size
     ){
         employeeService.deleteEmployeeById(id);
 
@@ -75,7 +93,8 @@ public class EmployeeController {
         modelMap.addAttribute("employeesJsp",employeesController);
         modelMap.addAttribute("pages",new int[employeesController.getTotalPages()]);
         modelMap.addAttribute("currentPage",page);
-        return "EmployeesList";    }
+        return "EmployeesList";
+    }
 
     @RequestMapping("/showEmployee")
     public String showEmployee(
