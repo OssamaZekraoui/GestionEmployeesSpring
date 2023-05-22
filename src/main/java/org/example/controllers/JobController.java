@@ -27,10 +27,15 @@ public class JobController {
     @RequestMapping("/saveJob")
     public String saveJob(
             @Valid Job job,
-            BindingResult bindingResult
+            BindingResult bindingResult,
+            ModelMap modelMap
     ){
-        if(bindingResult.hasErrors()) return "CreateJob";
+        if(bindingResult.hasErrors()) {
+            modelMap.addAttribute("errorMessage", "Failed to add the employee. Please check the form and try again.");
+            return "CreateJob";
+        }
         jobService.saveJob(job);
+        modelMap.addAttribute("successMessage", "Job added successfully");
         return "CreateJob";
     }
 

@@ -12,6 +12,18 @@
     <body>
     <div layout:fragment="content">
 
+        <!----------- Job added --------------->
+        <div th:if="${successMessage}" class="alert alert-success" role="alert">
+            <strong th:text="${successMessage}"></strong>
+        </div>
+        <!------------------------------------------>
+
+        <!------------ Job didn't add --------->
+        <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+            <strong th:text="${errorMessage}"></strong>
+        </div>
+        <!------------------------------------------>
+
     <!-- Header -->
     <header>
       <!-- Jumbotron -->

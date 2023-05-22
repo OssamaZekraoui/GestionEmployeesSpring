@@ -1,42 +1,50 @@
         <!DOCTYPE html>
         <html lang="en"  xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+              xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+        >
         <head>
             <!-- Bootstrap CSS -->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">        <meta charset="UTF-8">
             <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
              <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-            <title>Employee Creation</title>
+            <title>Employees Management</title>
         </head>
         <body>
 
-            <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-white">
-                <a class="navbar-brand" href="home">OssamaZekraoui</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="home">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="employeesList">EmployeesList</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="createEmployee">CreateEmployee</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="jobsList">JobsList</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="createJob">CreateJob</a>
-                        </li>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+            <!-- <a class="navbar-brand" href="#" th:text="${#authentication.name}">[username]</a> -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" role="button" href="/">home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="employeesList">EmployeesList</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="createEmployee">CreateEmployee</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="jobsList">JobsList</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="createJob">CreateJob</a>
+                    </li>
+                    <li class="nav-item">
+                        <form method="post" th:action="@{/logout}">
+                            <button sec:authorize="isAuthenticated()" class="btn btn-light nav-link" type="submit">Logout</button>
+                        </form>
+                    </li>
 
-                    </ul>
-                </div>
-            </nav>
+                </ul>
+            </div>
+        </nav>
+
 
             <div layout:fragment="content">
 

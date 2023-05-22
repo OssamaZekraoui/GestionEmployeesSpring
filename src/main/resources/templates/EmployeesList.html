@@ -57,7 +57,8 @@
                     <td th:text="${employee.recruitmentDate}"></td>
                     <td th:text="${employee.job.getTitle()}"></td>
 
-                    <td> <a onclick="return confirm('Are you sure to delete this item ?')"
+                    <td>
+                        <a onclick="return confirm('Are you sure to delete this item ?')"
                             th:href="@{deleteEmployee(id=${employee.id},
                             page=${currentPage},
                             size=${size}

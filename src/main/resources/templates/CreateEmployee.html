@@ -10,21 +10,22 @@
         <title>Employee Creation</title>
     </head>
     <body>
-
-    <!-- Header -->
-    <header>
-
-
-
-        <!-- Jumbotron -->
-        <div class="p-5 text-center bg-light">
-            <h1 class="mb-3">Employee Creation - Thymeleaf</h1>
-        </div>
-        <!-- Jumbotron -->
-    </header>
     <div layout:fragment="content">
 
-    <!-- Header -->
+        <!----------- Employee added --------------->
+        <div th:if="${successMessage}" class="alert alert-success" role="alert">
+            <strong th:text="${successMessage}"></strong>
+        </div>
+        <!------------------------------------------>
+
+        <!------------ Employee didn't add --------->
+        <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+            <strong th:text="${errorMessage}"></strong>
+        </div>
+        <!------------------------------------------>
+
+
+        <!-- Header -->
     <header>
         <!-- Jumbotron -->
         <div class="p-5 text-center bg-light">
@@ -67,15 +68,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="job">Job : </label>
-                    <select id="job" name="job.idJob" class="form-control">
+                    <label class="form-label" for="idJob">Job : </label>
+                    <select type="text" id="idJob" name="idJob" class="form-control">
                         <option value="">Select a job...</option>
-                        <option th:each="job : ${jobs}" th:value="${job.idJob}" th:text="${job.title}"></option>
+                        <option th:each="job : ${jobJsp}" th:value="${job.idJob}" th:text="${job.title}"></option>
                     </select>
                 </div>
-
-
-
 
                 <br>
                 <div>

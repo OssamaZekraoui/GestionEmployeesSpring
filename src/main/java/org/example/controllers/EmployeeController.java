@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,14 +29,14 @@ public class EmployeeController {
     @Autowired
     JobService jobService;
 
-    @RequestMapping("/home")
-    public String home() {
 
-        return "Home";
-    }
+
+
+
     @RequestMapping("/createEmployee")
-    public String createEmployee() {
-
+    public String createEmployee(ModelMap modelMap) {
+        List<Job> jobsList = jobService.getAllJobs();
+        modelMap.addAttribute("jobJsp", jobsList);
         return "CreateEmployee";
     }
 
@@ -43,28 +44,21 @@ public class EmployeeController {
     public String saveEmployee(
             @Valid Employee employee,
             BindingResult bindingResult,
+            @RequestParam("idJob") Long idJob,
             ModelMap modelMap
     ) {
         if(bindingResult.hasErrors()) {
-            List<Job> jobs = jobService.getAllJobs();
-            modelMap.addAttribute("jobs", jobs);
+            modelMap.addAttribute("errorMessage", "Failed to add the employee. Please check the form and try again.");
             return "CreateEmployee";
         }
 
+        Job selectedjob = jobService.getJob(idJob);
+        employee.setJob(selectedjob);
         // Save the employee
         employeeService.saveEmployee(employee);
+        modelMap.addAttribute("successMessage", "Employee added successfully");
         return "CreateEmployee";
     }
-
-
-   /* @RequestMapping("/employeesList")
-    public String employeesList(
-            ModelMap modelMap //Envoyer à la jsp
-    ){
-        List<Employee> employeesController = employeeService.getAllEmployees();
-        modelMap.addAttribute("employeesJsp",employeesController);
-        return "EmployeesList";
-    }*/
 
     @RequestMapping("/employeesList")
     public String employeesList(
@@ -114,6 +108,7 @@ public class EmployeeController {
         employeeService.saveEmployee(employee);
         return "CreateEmployee";
     }
+
 
 
 }
