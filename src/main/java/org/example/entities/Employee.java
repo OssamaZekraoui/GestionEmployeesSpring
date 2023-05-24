@@ -27,8 +27,7 @@ public class Employee {
     private String address;
     private String email;
 
-    @Min(value = 10)
-    @Max(value = 10)
+
     private String phone;
 
     //Recruitment Date

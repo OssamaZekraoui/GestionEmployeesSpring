@@ -13,6 +13,19 @@
 
     <div layout:fragment="content">
 
+        <!------------------------------------------>
+        <div th:if="${successMessage}" class="alert alert-success" role="alert">
+            <strong th:text="${successMessage}"></strong>
+        </div>
+        <!------------------------------------------>
+
+        <!------------------------------------------>
+        <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+            <strong th:text="${errorMessage}"></strong>
+        </div>
+        <!------------------------------------------>
+
+
     <!-- Header -->
     <header>
         <!-- Jumbotron -->
@@ -21,18 +34,6 @@
         </div>
         <!-- Jumbotron -->
     </header>
-
-    <!-- Header -->
-            <header>
-
-
-                <!-- Jumbotron -->
-                <div class="p-5 text-center bg-light">
-                    <h1 class="mb-3">Employee Edit - Thymeleaf</h1>
-                </div>
-                <!-- Jumbotron -->
-            </header>
-            <!-- Header -->
 
             <main class="container mt-5">
                 <form th:action="@{updateEmployee}" method="post">
@@ -77,10 +78,13 @@
                                th:value="${employeeJsp.recruitmentDate}" >
                     </div>
 
+
                     <div class="form-group">
-                        <label class="form-label" for="job">Job : </label>
-                        <input type="text" id="job" name="job" class="form-control"
-                               th:value="${employeeJsp.job.getTitle()}" >
+                        <label class="form-label" for="job">Job :</label>
+                        <select id="job" name="job" class="form-control">
+                            <option th:each="job : ${jobJsp}" th:value="${job.idJob}" th:text="${job.title}"
+                                    th:selected="${job.title == employeeJsp.job.title}"></option>
+                        </select>
                     </div>
                     <br>
                     <div>

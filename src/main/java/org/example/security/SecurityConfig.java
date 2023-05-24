@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+
+
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
@@ -20,9 +22,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception{
-        httpSecurity.formLogin();
-                // .loginPage("/login").defaultSuccessUrl("/").permitAll();
-        // httpSecurity.authorizeHttpRequests().requestMatchers("/webjars/**").permitAll();
+        httpSecurity.formLogin()
+                .loginPage("/login").defaultSuccessUrl("/").permitAll();
+                 httpSecurity.authorizeHttpRequests().requestMatchers("/webjars/**").permitAll();
 
         //-----------------Employees---------------------
         httpSecurity.authorizeHttpRequests().requestMatchers("/createEmployee","/saveEmployee").hasAnyRole("ADMIN","RH");

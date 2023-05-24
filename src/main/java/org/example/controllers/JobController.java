@@ -82,10 +82,17 @@ public class JobController {
 
     @RequestMapping("/updateJob")
     public String updateJob(
-            @ModelAttribute("job") Job job
+            @ModelAttribute("job") Job job,
+            ModelMap modelMap,
+            BindingResult bindingResult
     ) {
+        if(bindingResult.hasErrors()) {
+            modelMap.addAttribute("errorMessage", "Failed to edit the job. Please check the form and try again.");
+            return "CreateEmployee";
+        }
         jobService.saveJob(job);
-            return "CreateJob";
+        modelMap.addAttribute("successMessage", "Job has been edited successfully");
+        return "CreateJob";
     }
 
 

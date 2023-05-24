@@ -12,11 +12,24 @@
         <body>
         <div layout:fragment="content">
 
+            <!------------------------------------------>
+            <div th:if="${successMessage}" class="alert alert-success" role="alert">
+                <strong th:text="${successMessage}"></strong>
+            </div>
+            <!------------------------------------------>
+
+            <!------------------------------------------>
+            <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+                <strong th:text="${errorMessage}"></strong>
+            </div>
+            <!------------------------------------------>
+
+
         <!-- Header -->
         <header>
             <!-- Jumbotron -->
             <div class="p-5 text-center bg-light">
-                <h1 class="mb-3">Job Edit - Thymeleaf</h1>
+                <h1 class="mb-3">Job Edition - Thymeleaf</h1>
             </div>
             <!-- Jumbotron -->
         </header>

@@ -18,7 +18,6 @@ public class Job {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idJob;
     @NotNull
-    @Size(min = 2, max = 50)
     private String title;
     @NotNull
     @Size(min = 3, max = 255)

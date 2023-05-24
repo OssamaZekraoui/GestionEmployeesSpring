@@ -98,14 +98,26 @@ public class EmployeeController {
         Employee employeesController = employeeService.getEmployee(id);
         modelMap.addAttribute("employeeJsp",employeesController);
 
+        List<Job> jobsList = jobService.getAllJobs();
+        modelMap.addAttribute("jobJsp", jobsList);
+
         return "EditEmployee";
     }
 
     @RequestMapping("/updateEmployee")
     public String updateEmployee(
-            @ModelAttribute("employee") Employee employee
+            @ModelAttribute("employee") Employee employee,
+            ModelMap modelMap,
+            BindingResult bindingResult
     ) {
+
+        if(bindingResult.hasErrors()) {
+            modelMap.addAttribute("errorMessage", "Failed to edit the employee. Please check the form and try again.");
+            return "CreateEmployee";
+        }
+
         employeeService.saveEmployee(employee);
+        modelMap.addAttribute("successMessage", "Employee has been edited successfully");
         return "CreateEmployee";
     }
 
