@@ -48,12 +48,14 @@
                     <td th:text="${job.salary}"></td>
 
                     <td>
-                        <a onclick="return confirm('Are you sure to delete this item ?')"
+                        <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+                                onclick="return confirm('Are you sure to delete this item ?')"
                            th:href="@{deleteJob(id=${job.idJob}, page=${currentPage}, size=${size})}">
                             <i class="fas fa-trash-alt"></i>
                         </a>
 
-                        <a th:href="@{showJob(id=${job.idJob})}">
+                        <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+                                th:href="@{showJob(id=${job.idJob})}">
                             <i class="fas fa-edit"></i>
                         </a>
                     </td>
